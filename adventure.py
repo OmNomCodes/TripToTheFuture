@@ -14,7 +14,7 @@ def money_left(money):
         money -= 50
         print(" You decided to buy the cheapest hoverboard you can find.")
         print("You buy a hoverboard for 50 microbucks.  It says it can hold 2 people.")
-        print("You have " + str(money) + " microbucks left.")
+        print(f"You have {money} microbucks left.")
 
 
 #clothes_shop
