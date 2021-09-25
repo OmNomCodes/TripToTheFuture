@@ -9,7 +9,7 @@ def theif(money):
 
     if answer == "1":
       money += 100
-      print("\nThe local authorities look it over and agree to give you a 100 microbucks bonus.")
+      print("\nThe local authorities looked it over and agree to give you a 100 microbucks bonus.")
       print(f"Congratulations you now have {money} microbucks!")
 
     elif answer == "2":
@@ -166,9 +166,13 @@ def bakery(money):
         money_left(money)
 
     elif answer == "2":
+        money -= 5
         print("\nYou buy the bagel and hot cocao for 5 microbucks.")
         print(f"You now have {money} microbucks.")
         money_left(money)
+
+    else:
+        print("\nYou really don't know how to type anything.  WOW.")
 
 
 # pay day
@@ -350,8 +354,10 @@ def cake_room(money):
 def start():
   money = int(120)
   # give some prompts.
+  print("\nDisclaimer: Part of this code was based off of a coding tutorial by thecodingpie from thecodingpie.com")
   print("\nYou are standing in a dark room.")
   print("There is a door to your left and right, which one do you take? (l or r)")
+  print("You can also type 's' to skip intro or 'quit' to quit the game.")
   
   # convert the player's input() to lower_case
   answer = input(">").lower()
@@ -362,9 +368,11 @@ def start():
   elif "r" in answer:
     # else if player typed "right" or "r" lead him to monster_room()
     cookie_room(money)
+  elif "s" in answer:
+    future_room(money)
   else:
     # else call game_over() function with the "reason" argument
-    game_over("Don't you know how to type something properly?")
+    game_over("You quit the game or mistyped.  Come back soon.")
 
 
 # start the game
