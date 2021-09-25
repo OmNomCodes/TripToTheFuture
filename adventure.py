@@ -1,6 +1,109 @@
+#a theif
+def theif(money):
+    print("\nYou return to the capsule hotel to pick up your belongings to find they have all been stolen!")
+    print("What will you do?")
+    print("1) File a complaint to the local authorities")
+    print("2) Let it go and go get some food")
+
+    answer = input(">")
+
+    if answer == "1":
+      money += 100
+      print("\nThe local authorities look it over and agree to give you a 100 microbucks bonus.")
+      print(f"Congratulations you now have {money} microbucks!")
+
+    elif answer == "2":
+      print("\nYour stuff might be stolen but you still have money, and need something to eat.")
+
+    else:
+      game_over("YOU TYPED IT WRONGGGGGG!!!")
+
+
+#work()
+def work(money):
+    print("\n It's time to go to work to get some more mircrobucks.")
+    print(f"You only have {money} microbucks left.")
+    print("What would you like to do?")
+    print("1) Work for 4 hours for 90 microbucks.")
+    print("2) Work for 6 hours for 150 microbucks.")
+
+    answer = input(">")
+
+    if answer == "1":
+      money += 90
+      print(f"\nYou chose to work for 4 hours and got 90 microbucks. You now have {money} microbucks.")
+      theif(money)
+
+    elif answer == "2":
+      money += 150
+      print(f"\nYou chose to work for 6 hours for 150 mcirobucks. You now have {money} microbucks.")
+      theif(money)
+
+    else:
+      game_over("That's not an option.  Gosh, and you got so far.")
+
+
+#hotel_options()
+def hotel_options(money):
+    print("What will you choose? (1 or 2)")
+    print("1) 5 star hotel")
+    print("2) Capsule hotel")
+
+    answer = input(">")
+
+    if answer == "1":
+      if money > 90:
+        money -= 90
+        print("\nYou chose the more expensive 5 star hotel.")
+        print(f"You now have {money} microbucks left.")
+        work(money)
+      else:
+        print(f"\nSorry, it seems you only have {money} microbucks.  Please choose another option.")
+        hotel_options(money)
+
+    elif answer == "2":
+      if money > 30:
+        money -= 30
+        print("\nYou chose the cheeper capsule hotel.  Good choice!")
+        print(f"You now have {money} microbucks left.")
+        work(money)
+      else:
+        print(f"\nSorry, it seems you only have {money} microbucks. Please choose another option.")
+        hotel_options(money)
+
+    else:
+      game_over("You really need to learn your number alphabet.")
+
+
+
+#night_stay()
+def night_stay(money):
+    print("What will you do next? (1 or 2)")
+    print("1)  find some place to stay for the night.")
+    print("2)  Ask if there is somewhere to stay for free.")
+
+    answer = input(">")
+
+    if answer == "1":
+      print(f"There are a couple of options.  Keep in mind you have {money} microbucks left.")
+      print("You can buy a premium night stay for 90 microbucks at an exclusive 5 star hotel.")
+      print("Or for cheeper, you can stay at the local capsule hotel for 30 microbucks.")
+      hotel_options(money)
+      
+    elif answer == "2":
+      print("Sadly, there are no open spots at the library's shelter tonight.  You will have to buy a place to stay.")
+      print(f"There are a couple of options.  Keep in mind you have {money} microbucks left.")
+      print("You can buy a premium night stay for 90 microbucks at an exclusive 5 star hotel.")
+      print("Or for cheeper, you can stay at the local capsule hotel for 30 microbucks.")
+      hotel_options(money)
+
+    else:
+      game_over("You've been doing it for so long, how hard is it to press one number?")
+
+
 #money_left()
 def money_left(money):
-    print("\nYou now have " + str(money) + " microbucks left.")
+    print(f"\nYou now have {money} microbucks left.")
     print("What would you like to do with it? (1 or 2)")
     print("1) Save the rest up to buy a house later")
     print("2) Buy a hoverboard")
@@ -9,12 +112,16 @@ def money_left(money):
 
     if answer == "1":
         print("Good idea, this will be a good investment.")
+        print(f"You still have {money} microbucks left.")
+        night_stay(money)
+
 
     elif answer == "2":
         money -= 50
         print(" You decided to buy the cheapest hoverboard you can find.")
         print("You buy a hoverboard for 50 microbucks.  It says it can hold 2 people.")
         print(f"You have {money} microbucks left.")
+        night_stay(money)
 
 
 #clothes_shop
@@ -31,12 +138,14 @@ def clothes_shop(money):
     if answer == "1":
         money -=30
         print("\nYou chose the blue suit with minimal tech and saved some money.")
-        print("You now have " + str(money) + " microbucks.")
+        print(f"You now have {money} microbucks.")
+        money_left(money)
 
     elif answer == "2":
         money -= 45
         print("\nYou chose the purple suit with a fair amount of tech.  Good choice.")
-        print("You now have " + str(money) + " microbucks.")
+        print(f"You now have {money} microbucks.")
+        money_left(money)
 
     else:
         game_over("\nYou can't buy it if it doesn't exist.")
@@ -53,11 +162,13 @@ def bakery(money):
     if answer == "1":
         money -= 5
         print("\nYou buy a donut and coffee for 5 microbucks.")
-        print("You now have " + str(money) + " microbucks.")
+        print(f"You now have {money} microbucks.")
+        money_left(money)
 
     elif answer == "2":
         print("\nYou buy the bagel and hot cocao for 5 microbucks.")
-        print("You now have " + str(money) + " microbucks.")
+        print(f"You now have {money} microbucks.")
+        money_left(money)
 
 
 # pay day
@@ -173,7 +284,7 @@ def future_room(money):
     coffee_shop(money)
   elif answer == "2":
     # the player won the game
-    print("\nNice, you're are an honest man! Congrats you win the game!")
+    print("\nYou decide to stay with your friends and family, and have a nice life.")
     # activate play_again() function
     play_again()
   else:
