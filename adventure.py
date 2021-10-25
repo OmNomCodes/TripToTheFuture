@@ -1,3 +1,165 @@
+backpack = {
+  "clothes": "",
+  "phone": 0,
+  "perk": 0,
+  "robotname": "",
+  "hoverboard": 0,
+  "pet_stuff": [],
+  "pet_points": 0,
+  "hunger": 3,
+  "debt": 0
+}
+
+home_backpack = {
+
+}
+#test_subject()
+# def test_subject(money):
+#   if backpack["clothes"] == "purple":
+#     print("purple clothes")
+#   elif backpack["clothes"] == "blue":
+#     print("blue clothes")
+#   else:
+#     game_over("error")
+
+
+
+def pet_care(money):
+  if backpack["perk"] >= 1:
+    print("\nPart of being a responsible pet owner is taking care of your pet.")
+    print("What will you buy your pet?")
+    print("1) a bed (15 microbucks)")
+    print("2) A toy (5 microbucks)")
+    print("3) A bed and a toy (20 microbucks)")
+    print("4) Skip purchase")
+    print("5) Quit Game (All progress will be lost)")
+    print(f"Keep in mind you have {money} microbucks.")
+    #How to add things to the list:
+    #backpack["pet_stuff"].extend(["bed, toy"])
+    answer = input(">")
+
+    if answer == "1":
+      if money >= 15:
+        money -= 15
+        backpack["pet_points"] += 1
+        backpack["pet_stuff"].extend(["bed"])
+        print("\nYou chose the pet bed for 15 microbucks.")
+        print("\nBy buying your pet a bed, you earned one pet point.  You can get more pet points by doing different things for your pet.")
+        print("These points once saved up can be used to redeem certain things for your pet.")
+        print("You now have " + str(backpack["pet_points"]) + f" pet points and {money} microbucks.")
+
+      else: 
+        print("\nYou don't have enough microbucks.  Please choose another option.")
+        pet_care(money)
+
+    elif answer == "2":
+      if money >= 5:
+        money -=5
+        backpack["pet_stuff"].extend(["toy"])
+        print("\nYou chose the dog toy for 5 microbucks. Good choice!")
+        print(f"You now have {money} microbucks left.")
+      else:
+        print(f"\nYou only have {money} microbucks.  Please choose another option.")
+        pet_care(money)
+
+    elif answer == "3":
+      if money >= 20:
+        money -=20
+        backpack["pet_points"] += 2
+        backpack["pet_stuff"].extend(["bed, toy"])
+        print("\nYou chose to buy the pet bed and the toy, good choice!")
+        print("This gives you 2 pet points, once you get more pet points you can redeem them for different things!")
+        print("You now have " + str(backpack["pet_points"]) + f" pet points and {money} microbucks.")
+
+      else:
+        print(f"Sorry, you only have {money} microbucks.  Please choose another option.")
+        pet_care(money)
+
+    elif answer == "4":
+      print("\nYou chose to skip buying anything for your pet.")
+
+    elif answer == "5":
+      game_over("\nYou chose to quit the game.  Come back soon!")
+
+    else:
+      print("\nSorry, please make a valid selection.")
+      pet_care(money)
+
+      
+
+
+#robot_name()
+def robot_name(money):
+  print("\nWhat will you name your robot?")
+  backpack["robotname"] = input(">")
+  print(backpack["robotname"] + " is now your pet!")
+  pet_care(money)
+
+
+#dinner()
+def dinner(money):
+    print("\nAfter a long day it's time to get some dinner.")
+    print(f"You have {money} microbucks. Choose a restaurant:")
+    print("1) Fast food for 10 microbucks")
+    print("2) Family restaurant for 30 microbucks")
+    print("3) 5 Star restaurant with free perks for 80 microbucks")
+    print("4) Skip dinner")
+
+    answer = input(">")
+
+    if answer == "1":
+      if money > 10:
+        money -= 10
+        backpack["hunger"] += 1
+        print("\nYou chose the fast food for 10 microbucks.")
+        print(f"You now have {money} microbucks left.")
+        print("You also have " + str(backpack["hunger"]) + " hunger points left.")
+        
+      else:
+        print(f"\nSorry, it seems you only have {money} microbucks.  Please choose again.")
+        dinner(money)
+
+    elif answer == "2":
+      if money > 30:
+        money -= 30
+        backpack["hunger"] += 1
+        print("\nYou chose the family diner for 30 microbucks.")
+        print(f"You now have {money} microbucks left.")
+        print("You also have " + str(backpack["hunger"]) + " hunger points left.")
+      else:
+        print(f"\nSorry, it seems you only have {money} microbucks.  Please choose again.")
+        dinner(money)
+
+    elif answer == "3":
+      if money > 80:
+        money -= 80
+        backpack["hunger"] += 1
+        print("\nYou chose the 5 star restaurant with perks for 80 microbucks.")
+        print(f"You now have {money} microbucks left.")
+        print("You also have " + str(backpack["hunger"]) + " hunger points left.")
+        print("The waiter comes over and gives you something. It's a complimentary robot pet.")
+        backpack["perk"] += 1
+        robot_name(money)
+
+      else:
+        print(f"\nSorry, it seems you only have {money} microbucks.  Please choose again.")
+        dinner(money)
+    
+    elif answer == "4":
+      if backpack["hunger"] < 1:
+        game_over("You ran out of hunger points.  Soon this will not be game over but start from home.")
+
+      else:
+        backpack["hunger"] -= 1
+        print("You chose to skip dinner tonight.")
+        print("Your hunger level is now " + str(backpack["hunger"]) + ".  Keep in mind if it drops to zero you will faint and all items aqcuired will be lost.")
+
+    else:
+      print("Sorry, please choose a valid answer: ")
+      dinner(money)
+
+
+
 #a theif
 def theif(money):
     print("\nYou return to the capsule hotel to pick up your belongings to find they have all been stolen!")
@@ -11,9 +173,11 @@ def theif(money):
       money += 100
       print("\nThe local authorities looked it over and agree to give you a 100 microbucks bonus.")
       print(f"Congratulations you now have {money} microbucks!")
+      dinner(money)
 
     elif answer == "2":
       print("\nYour stuff might be stolen but you still have money, and need something to eat.")
+      dinner(money)
 
     else:
       game_over("YOU TYPED IT WRONGGGGGG!!!")
@@ -118,10 +282,18 @@ def money_left(money):
 
     elif answer == "2":
         money -= 50
+        backpack["hoverboard"] += 1
         print(" You decided to buy the cheapest hoverboard you can find.")
         print("You buy a hoverboard for 50 microbucks.  It says it can hold 2 people.")
         print(f"You have {money} microbucks left.")
         night_stay(money)
+
+    elif answer == "3":
+      print("\nYou chose to leave the game. Come back soon.")
+
+    else:
+      print("\nPlease choose a valid option:")
+      money_left(money_left)
 
 
 #clothes_shop
@@ -137,12 +309,14 @@ def clothes_shop(money):
 
     if answer == "1":
         money -=30
+        backpack["clothes"] = "blue"
         print("\nYou chose the blue suit with minimal tech and saved some money.")
         print(f"You now have {money} microbucks.")
         money_left(money)
 
     elif answer == "2":
         money -= 45
+        backpack["clothes"] = "purple"
         print("\nYou chose the purple suit with a fair amount of tech.  Good choice.")
         print(f"You now have {money} microbucks.")
         money_left(money)
@@ -161,18 +335,21 @@ def bakery(money):
     answer = input(">")
     if answer == "1":
         money -= 5
+        backpack["hunger"] += 1
         print("\nYou buy a donut and coffee for 5 microbucks.")
         print(f"You now have {money} microbucks.")
         money_left(money)
 
     elif answer == "2":
         money -= 5
+        backpack["hunger"] += 1
         print("\nYou buy the bagel and hot cocao for 5 microbucks.")
         print(f"You now have {money} microbucks.")
         money_left(money)
 
     else:
-        print("\nYou really don't know how to type anything.  WOW.")
+        print("\nPlease choose a valid selection:")
+        bakery(money)
 
 
 # pay day
@@ -196,7 +373,8 @@ def pay_day(money):
         bakery(money)
 
     else:
-        print("\n Do you even have number keys?")
+        print("\n Please choose a valid selection: ")
+        pay_day(money)
 
 
 # book store
@@ -218,7 +396,8 @@ def book_store(money):
         game_over("Goodbye for now, come back soon.")
 
     else:
-        game_over("The last thing you hear is the sound of people weeping because of your dreadful typing.")
+        print("\nThat is not a valid selection.  Try again.")
+        book_store(money)
 
 #Coffee Shop
 def coffee_shop(money):
@@ -242,7 +421,8 @@ def coffee_shop(money):
         book_store(money)
 
     else:
-        game_over("You need a class in typing numbers properly.")
+        print("\nPlease choose a valid selection.")
+        coffee_shop(money)
 
 
 # function to ask play again or not
@@ -268,6 +448,61 @@ def game_over(reason):
   # ask player to play again or not by activating play_again() function
   play_again()
 
+#bad google interview
+def bad_google(money):
+  print("\nYou don't have time to finish getting ready, your interview is starting!")
+  print("\nYour interview is with Google, you want to apply for the position of a software engineer.")
+  print("Your interviewer thinks you look a little too proffesional for the position.")
+  print("They ask you some questions: ")
+  print("1) Do you work well in groups?")
+  
+
+
+#google_interview()
+def google_interview(money):
+  print("\nYou don't have time to finish getting ready, your interview is starting!")
+  print("\nYour interview is with Google, you want to apply for the position of a software engineer.")
+  print("Your interviewer loves your outfit and thinks you will do well with the Google atmosphere.")
+  print("They test your skills and let you start the next day.  Congratulations!")
+
+#present_life()
+def present_life(money):
+  print("\nYou decide to stay with your friends and family.")
+  print("You walk back through the door that got you here, but instead of returning to the dark room you started in, you wake up.")
+  print("You realize it was a dream and get ready for the day.")
+  print("You have a job interview today.")
+  print("You only have 120 dollars in savings and would like to make some more.")
+  print("What will you do first?")
+  print("1) Put on a suit and tie")
+  print("2) Style your hair")
+  print("3) Quit game")
+
+  answer = input(">")
+
+  if answer == "1":
+    print("\nYou choose to put on a suit and tie.")
+    print("Your outfit is professional but not very fun.")
+    bad_google(money)
+
+  elif answer == "2":
+    print("\nYou chose to put on some socks.")
+    print("Your socks are very fun, today you have little computers drinking coffee on them.")
+    print("They're so high that you can see them even with your shoes on.")
+    print("Your outfit is very fun, but not the most professional.")
+    google_interview(money)
+
+  elif answer == "3":
+    print("\nYou chose to style your hair.  You brush it out and dye it purple. ")
+    print("Super fun, but not the most professional hairstyle.")
+    google_interview(money)
+
+  elif answer == "4":
+    game_over("\nYou left the game.  Come back soon!")
+
+  else:
+    print("\nSorry, please pick a listed option.")
+    present_life(money)
+
 
 # future room
 def future_room(money):
@@ -290,7 +525,7 @@ def future_room(money):
     # the player won the game
     print("\nYou decide to stay with your friends and family, and have a nice life.")
     # activate play_again() function
-    play_again()
+    present_life(money)
   else:
     # call game_over() with "reason"
     game_over("Go and learn how to type a number.")
