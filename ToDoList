@@ -1,2 +1,3 @@
 1) work on home_backpack for players who do not wish to go to the future
 2) Figure out how to assign quanitity to the strings I put inside the lists ex: in "pet_stuff" I want the "toys" to equal 2.  
+3) Make sure pet_food will be added to from all functions
