@@ -5,13 +5,18 @@ backpack = {
   "robotname": "",
   "hoverboard": 0,
   "pet_stuff": [],
-  "pet_points": 0,
+  "pet_points": 0, 
   "hunger": 3,
   "debt": 0,
   "present": 0,
-  "future": 0
+  "future": 0,
+  "pet_food": 0
 }
-
+ #How to add things to the list:
+    #backpack["pet_stuff"].extend(["bed, toy"])
+ #How to change a number
+    #backpack["debt"] += 200
+# To tell a function do nothing write -->  pass (no parenthises)
 home_backpack = {
 
 }
@@ -27,6 +32,54 @@ home_backpack = {
 def next():
   print("NEXT")
 
+#PET POINT REDEMPTION
+def petPrize():
+  if backpack["pet_points"] >= 5:
+    print("\nYou have " + str(backpack["pet_points"]) + " pet points now!  That's enough to choose a prize. What do you want to get?")
+    print("1: New toy (5 pet points)")
+    print("2: 1 bag of pet food (7 pet points)")
+    print("3: New collar (5 pet points)")
+    print("4: \"Grooming\" -> which is actually circuit maintenance (10 pet points)")
+    print("5: I'll save my petpoints for later")
+    answer = input(">")
+    
+    if answer == "1":
+      backpack["pet_points"] -= 5
+      backpack["pet_stuff"].extend(["toy"])
+      print("\nYou chose a toy!  A great item to keep your pet entertained.")
+      print("You now have " + str(backpack["pet_points"]) + " pet points.")
+      next()
+    elif answer == "2":
+      if backpack["pet_points"] >= 7:
+        backpack["pet_points"] -= 7
+        backpack["pet_food"] += 1
+        print("\nYou chose to buy the pet food for 7 pet points!  You now have " + str(backpack["pet_points"]) + " pet points and " + str(backpack["pet_food"]) + " bags of pet food.")
+        print("Remember: even though your pet is a robot, if you do not feed it regularly it may start to malfunction and that could turn into a very costly visit to the vet.")
+        next()
+      else:
+        print("\nSorry, you don't have enough pet points for this option.  Please choose another option:")
+        petPrize()
+    elif answer == "3":
+      backpack["pet_points"] -= 5
+      backpack["pet_stuff"].extend(["collar"])
+      print("\nGood choice!  Your pet will look great with a collar.  You now have " + str(backpack["pet_points"]) + " pet points." )
+      next()
+    elif answer == "4":
+      if backpack["pet_points"] >= 10:
+        backpack["pet_points"] -= 10
+        print("\nGreat choice!  Grooming your pet will keep it healthy and working properly. " + backpack["robotname"] + " is now sparkling clean.  Its carbon fiber body has never looked better!")
+        next()
+      else:
+        print("\nSorry, you don't have enough pet points for this option.  Please choose another option:")
+        petPrize()
+    elif answer == "5":
+      print("\nGood choice.  Saving up your pet points for later can allow you to buy " + backpack["robotname"] + " nothing but the best!")
+      next()
+    else:
+      print("\nSorry, please choose a valid option: ")
+      petPrize()
+  else:
+    pass
 #FAST FOOD
 def Fastfood(money):
   if money >= 10:
@@ -69,6 +122,8 @@ def Dogpark(money):
   backpack["pet_points"] += 1
   print("\nYou decided to go to the dog park with "+backpack["robotname"]+"!")
   print("A cute robot cat named Tuna played with "+backpack["robotname"]+".  When robotic animals were first attempted the dynamic between cats and dogs was maintained, but after a while people started asking for robotic animals that had the same traits as real animals but could remain peaceful together.")
+  print("You now have " + str(backpack["pet_points"]) + " pet points.")
+  petPrize()
   next()
 
 
@@ -76,7 +131,8 @@ def Pool(money):
   backpack["pet_points"] += 1
   print("\nYou decided to bring "+backpack["robotname"]+" to the pool.")
   print("Luckily robotic animals from the future happen to be waterproof.")
-  print("")
+  print("After watching " + backpack["robotname"] + " swim for a while and cooling off in the water yourself, you realize it's already time for lunch!")
+  print("Luckily, there are some food trucks nearby. ") #next(do foodtruck stuff selection and then lead into other functions for each)
   next()
 
 #Breakfast
@@ -987,3 +1043,5 @@ def start():
 
 # start the game
 start()
+
+# Look for anything with the function next() to start working on
