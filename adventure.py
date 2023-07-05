@@ -4,14 +4,30 @@ backpack = {
   "perk": 0,
   "robotname": "",
   "hoverboard": 0,
-  "pet_stuff": [],
   "pet_points": 0, 
   "hunger": 3,
   "debt": 0,
   "present": 0,
-  "future": 0,
+  "future": 0
+}
+
+petPack = {
+  "bed": 0,
+  "toy": 0,
   "pet_food": 0
 }
+
+#Check if something exists in the bacpack:
+#f "a" in dict_1:
+#    print("Exists")
+#else:
+#    print("Does not exist")
+
+#How to change all the values of a dictionary to the same number:
+#   petPack = dict.fromkeys(petPack, 0)
+
+ #How to add things to the backpacks:
+    #thisdict["color"] = "red"
  #How to add things to the list:
     #backpack["pet_stuff"].extend(["bed, toy"])
  #How to change a number
@@ -45,15 +61,15 @@ def petPrize():
     
     if answer == "1":
       backpack["pet_points"] -= 5
-      backpack["pet_stuff"].extend(["toy"])
+      petPack["toy"] += 1
       print("\nYou chose a toy!  A great item to keep your pet entertained.")
       print("You now have " + str(backpack["pet_points"]) + " pet points.")
       next()
     elif answer == "2":
       if backpack["pet_points"] >= 7:
         backpack["pet_points"] -= 7
-        backpack["pet_food"] += 1
-        print("\nYou chose to buy the pet food for 7 pet points!  You now have " + str(backpack["pet_points"]) + " pet points and " + str(backpack["pet_food"]) + " bags of pet food.")
+        petPack["pet_food"] += 1
+        print("\nYou chose to buy the pet food for 7 pet points!  You now have " + str(backpack["pet_points"]) + " pet points and " + str(petPack["pet_food"]) + " bags of pet food.")
         print("Remember: even though your pet is a robot, if you do not feed it regularly it may start to malfunction and that could turn into a very costly visit to the vet.")
         next()
       else:
@@ -61,7 +77,13 @@ def petPrize():
         petPrize()
     elif answer == "3":
       backpack["pet_points"] -= 5
-      backpack["pet_stuff"].extend(["collar"])
+      if "collar" in petPack:
+        petPack["collar"] += 1
+        print("collar")
+      else:
+        petPack["collar"] = 1
+        print("no collar")
+
       print("\nGood choice!  Your pet will look great with a collar.  You now have " + str(backpack["pet_points"]) + " pet points." )
       next()
     elif answer == "4":
@@ -225,7 +247,7 @@ def pet_care(money):
       if money >= 15:
         money -= 15
         backpack["pet_points"] += 1
-        backpack["pet_stuff"].extend(["bed"])
+        petPack["bed"] += 1
         print("\nYou chose the pet bed for 15 microbucks.")
         print("\nBy buying your pet a bed, you earned one pet point.  You can get more pet points by doing different things for your pet.")
         print("These points once saved up can be used to redeem certain things for your pet.")
@@ -239,7 +261,7 @@ def pet_care(money):
     elif answer == "2":
       if money >= 5:
         money -=5
-        backpack["pet_stuff"].extend(["toy"])
+        petPack["toy"] += 1
         print("\nYou chose the dog toy for 5 microbucks. Good choice!")
         print(f"You now have {money} microbucks left.")
         saturday(money)
@@ -251,7 +273,8 @@ def pet_care(money):
       if money >= 20:
         money -=20
         backpack["pet_points"] += 2
-        backpack["pet_stuff"].extend(["bed, toy"])
+        petPack["toy"] += 1
+        petPack["bed"] += 1
         print("\nYou chose to buy the pet bed and the toy, good choice!")
         print("This gives you 2 pet points, once you get more pet points you can redeem them for different things!")
         print("You now have " + str(backpack["pet_points"]) + f" pet points and {money} microbucks.")
@@ -720,7 +743,7 @@ def small_debt(money):
 def faint(money):
   money == 0
   backpack["phone"] == 0
-  backpack["pet_stuff"] == 0
+  petPack = dict.fromkeys(petPack, 0)
   backpack["hunger"] == 3
   print("\nYou fainted and lost all your stuff!")
   print("\n(some of these may include your phone, money, and pet items.")
