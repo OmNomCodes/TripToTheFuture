@@ -18,7 +18,7 @@ petPack = {
 }
 
 #Check if something exists in the bacpack:
-#f "a" in dict_1:
+#if "a" in dict_1:
 #    print("Exists")
 #else:
 #    print("Does not exist")
@@ -131,7 +131,7 @@ def FamilyRestaurant(money):
     elif answer == "3":
       print("\nPierogies with sauerkraut might be the hardest thing on the menu to spell, but it sure is the best tasting!  You now have "+str(backpack["hunger"])+" hunger points.")
     elif answer == "4":
-      game_over()
+      game_over("")
     else:
       print("Sorry, please choose a valid option: ")
       FamilyRestaurant(money)
@@ -203,7 +203,7 @@ def saturday(money):
     elif answer == "3":
       Coffee(money)
     elif answer == "4":
-      game_over()
+      game_over("")
     else:
       print("Please choose a valid option:")
       saturday(money)
@@ -223,7 +223,7 @@ def saturday(money):
     #elif answer1 == "3":
       #Movie(money)
     elif answer1 == "4": 
-      game_over()
+      game_over("")
     else:
       print("Sorry, please pick a valid option: ")
       saturday(money)
