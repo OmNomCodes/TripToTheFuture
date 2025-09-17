@@ -17,6 +17,20 @@ petPack = {
   "pet_food": 0
 }
 
+#Use this as a model for other functions; pick & choose what you need
+def fakeFunction(money):
+  print("storyline here")
+  answer = input(">")
+  if answer == "help":
+    rules(money)
+  elif answer == "q":
+    game_over()
+  elif answer == "1":
+    otherFunction(money)
+  else:
+    print("Please choose a valid option:")
+    fakeFunction(money)
+
 #Check if something exists in the bacpack:
 #if "a" in dict_1:
 #    print("Exists")
@@ -33,9 +47,6 @@ petPack = {
  #How to change a number
     #backpack["debt"] += 200
 # To tell a function do nothing write -->  pass (no parenthises)
-home_backpack = {
-
-}
 #test_subject()
 # def test_subject(money):
 #   if backpack["clothes"] == "purple":
@@ -1032,6 +1043,11 @@ def cake_room(money):
     print("\nPlease choose a REAL selection this time:")
     cake_room(money)
 
+def rules(money):
+  print("\nHere is how the game works:")
+  print("\nYou start out the game with " + str(money) + " pieces of money, and " + str(backpack["hunger"]) + " hunger points.")
+  print("\nIf you answer 'q' to a question, you will quit the game and lose all progress")
+  print("\nWhen you are asked a question, choose your answer and type the number you chose.")
 
 #START HERE#
 
@@ -1041,23 +1057,25 @@ def start():
   money = int(120)
   # give some prompts.
   print("\nDisclaimer: Part of this code was based off of a coding tutorial by thecodingpie from thecodingpie.com")
-  print("\nYou are standing in a dark room.")
-  print("There is a door to your left and right, which one do you take? (l or r)")
-  print("You can also type 's' to skip intro or 'quit' to quit the game.")
+  print("\nYou are standing in a dark room. As your eyes begin to adjust you see a sliver of light streaming into the room on the left, and a similar glimpse of light to the right. Upon further inspection you find that they are both doors.")
+  print("\nWhich door do you take? (l or r)")
+  print("(Type 'help' at any time to read the game rules)")
   
   # convert the player's input() to lower_case
   answer = input(">").lower()
 
-  if "l" in answer:
+  if answer == "l":
     # if player typed "left" or "l" lead player to cake room)
     cake_room(money)
-  elif "r" in answer:
+  elif answer == "r":
     # else if player typed "right" or "r" lead him to monster_room()
     cookie_room(money)
-  elif "s" in answer:
+  elif answer == "s":
     future_room(money)
-  elif "q" in answer:
+  elif answer == "q":
     game_over("You chose to leave the game.  See you soon!")
+  elif answer == "help":
+    rules(money)
   else:
     # else call game_over() function with the "reason" argument
     print("\nPlease choose a valid selection:")
